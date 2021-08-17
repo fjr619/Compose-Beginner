@@ -9,6 +9,7 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.Button
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Text
 import androidx.compose.ui.Modifier
@@ -16,8 +17,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.fjr619.composebeginner.ui.theme.HorizontalDottedProgress
 
 class RecipeListFragment: Fragment() {
@@ -40,6 +43,15 @@ class RecipeListFragment: Fragment() {
 
                 val customView = HorizontalDottedProgress(LocalContext.current)
                 AndroidView(factory = { customView })
+
+                Spacer(modifier = Modifier.padding(16.dp))
+                Button(
+                    onClick = {
+                        findNavController().navigate(R.id.action_recipeListFragment_to_recipeFragment)
+                    }
+                ) {
+                    Text(text = "To recipe fragment")
+                }
             }
         }
         return view
