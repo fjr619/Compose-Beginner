@@ -1,4 +1,4 @@
-package com.fjr619.composebeginner
+package com.fjr619.composebeginner.presentation.ui.recipe_list
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -17,13 +17,24 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.fjr619.composebeginner.ui.theme.HorizontalDottedProgress
+import com.fjr619.composebeginner.R
+import com.fjr619.composebeginner.presentation.ui.theme.HorizontalDottedProgress
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class RecipeListFragment: Fragment() {
+
+    private val viewModel: RecipeListViewModel by viewModels()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        println("RecipeListFragment: $viewModel")
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,

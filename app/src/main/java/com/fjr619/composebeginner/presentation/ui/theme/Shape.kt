@@ -1,4 +1,4 @@
-package com.fjr619.composebeginner.ui.theme
+package com.fjr619.composebeginner.presentation.ui.theme
 
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Shapes

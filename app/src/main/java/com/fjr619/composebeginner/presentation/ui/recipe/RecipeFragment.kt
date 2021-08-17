@@ -1,4 +1,4 @@
-package com.fjr619.composebeginner
+package com.fjr619.composebeginner.presentation.ui.recipe
 
 import android.os.Bundle
 import android.view.LayoutInflater

@@ -22,7 +22,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.fjr619.composebeginner.ui.theme.ComposeBeginnerTheme
+import com.fjr619.composebeginner.presentation.ui.theme.ComposeBeginnerTheme
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
