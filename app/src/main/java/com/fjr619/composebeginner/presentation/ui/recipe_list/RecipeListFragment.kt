@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.compose.foundation.background
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -22,6 +23,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
@@ -31,6 +33,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import com.fjr619.composebeginner.presentation.ui.components.FoodCategoryChip
 import com.fjr619.composebeginner.presentation.ui.components.RecipeCard
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -49,10 +52,10 @@ class RecipeListFragment : Fragment() {
             setContent {
                 val recipes = viewModel.recipes.value
                 val query = viewModel.query.value
-                Column {
+                Column(modifier = Modifier.background(color = Color.White)) {
                     Surface(
                         modifier = Modifier.fillMaxWidth(),
-                        color = MaterialTheme.colors.primary,
+                        color = Color.White,
                         elevation = 8.dp
                     ) {
                         Column {
@@ -95,12 +98,10 @@ class RecipeListFragment : Fragment() {
                             //cara 1
                             LazyRow(content = {
                                 items(getAllFoodCategories()) { category ->
-                                    Text(
-                                        text = category.value,
-                                        style = MaterialTheme.typography.body2,
-                                        color = MaterialTheme.colors.secondary,
-                                        modifier = Modifier.padding(8.dp)
-                                    )
+                                    FoodCategoryChip(category = category.value, onExecuteSearch ={
+                                        viewModel.onQueryChanged(it)
+                                        viewModel.newSearch(it)
+                                    } )
                                 }
                             })
 
@@ -109,12 +110,10 @@ class RecipeListFragment : Fragment() {
 //                                modifier = Modifier.horizontalScroll(rememberScrollState())
 //                            ) {
 //                                for (category in getAllFoodCategories()) {
-//                                    Text(
-//                                        text = category.value,
-//                                        style = MaterialTheme.typography.body2,
-//                                        color = MaterialTheme.colors.secondary,
-//                                        modifier = Modifier.padding(8.dp)
-//                                    )
+//                                    FoodCategoryChip(category = category.value, onExecuteSearch = {
+//                                        viewModel.onQueryChanged(it)
+//                                        viewModel.newSearch(it)
+//                                    })
 //                                }
 //                            }
                         }
