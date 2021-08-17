@@ -3,6 +3,7 @@ package com.fjr619.composebeginner
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.background
@@ -23,117 +24,120 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.fjr619.composebeginner.ui.theme.ComposeBeginnerTheme
 
-class MainActivity : ComponentActivity() {
+class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContent {
-            ComposeBeginnerTheme{
-                // A surface container using the 'background' color from the theme
-                Surface(color = MaterialTheme.colors.background,
-                modifier = Modifier.fillMaxSize()) {
-                    BasicRow()
-                }
-            }
-        }
+//        setContent {
+//            ComposeBeginnerTheme{
+//                // A surface container using the 'background' color from the theme
+//                Surface(color = MaterialTheme.colors.background,
+//                modifier = Modifier.fillMaxSize()) {
+//                    BasicRow()
+//                }
+//            }
+//        }
+
+        setContentView(R.layout.activity_main)
+        supportFragmentManager.beginTransaction().replace(R.id.main_container, RecipeListFragment())
+            .commit()
     }
 }
 
-@Composable
-fun BasicColumn() {
-    Column(modifier = Modifier
-        .fillMaxSize()
-        .verticalScroll(state = ScrollState(0))) {
-        Image(
-            painterResource(R.drawable.happy_meal_small),
-            contentDescription = "",
-            modifier = Modifier.height(300.dp).fillMaxWidth(),
-            contentScale = ContentScale.Crop
-        )
-
-        Column(modifier = Modifier.padding(16.dp)) {
-            Text(
-                text = "Happy Meal",
-                fontSize = 26.sp
-            )
-            Spacer(modifier = Modifier.padding(top = 10.dp))
-            Text(
-                text = "800 Calories",
-                fontSize = 17.sp
-            )
-            Spacer(modifier = Modifier.padding(top = 10.dp))
-            Text(
-                text = "$5.99",
-                color = Color(0xFF85bb65),
-                fontSize = 14.sp
-            )
-        }
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun BasicRow() {
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .verticalScroll(state = ScrollState(0))
-
-    ) {
-        Image(
-            painterResource(R.drawable.happy_meal_small),
-            contentDescription = "",
-            modifier = Modifier.height(300.dp).fillMaxWidth(),
-            contentScale = ContentScale.Crop
-        )
-        Column(
-            modifier = Modifier.padding(16.dp)
-        ) {
-
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween,
-            ) {
-
-                //https://stackoverflow.com/a/66622843
-                Text(
-                    text = "Happy Happy",
-                    fontSize = 26.sp,
-                    modifier = Modifier.weight(1f)
-                )
-                
-                Text(
-                    text = "$5.99",
-                    color = Color(0xFF85bb65),
-                    fontSize = 14.sp,
-                    modifier = Modifier.align(Alignment.CenterVertically)
-                )
-            }
-
-            Spacer(modifier = Modifier.padding(top = 10.dp))
-            Text(
-                text = "800 Calories",
-                fontSize = 17.sp
-            )
-
-            Spacer(modifier = Modifier.padding(top = 10.dp))
-            Button(
-                onClick = {},
-                modifier = Modifier.align(Alignment.CenterHorizontally)
-            ) {
-                Text(text = "button")
-            }
-        }
-    }
-}
-
-@Composable
-fun Greeting(name: String) {
-    Text("Hello World $name", Modifier.fillMaxWidth())
-}
-
-@Composable
-fun DefaultPreview() {
-    ComposeBeginnerTheme {
-        Greeting("Android")
-    }
-}
+//@Composable
+//fun BasicColumn() {
+//    Column(modifier = Modifier
+//        .fillMaxSize()
+//        .verticalScroll(state = ScrollState(0))) {
+//        Image(
+//            painterResource(R.drawable.happy_meal_small),
+//            contentDescription = "",
+//            modifier = Modifier.height(300.dp).fillMaxWidth(),
+//            contentScale = ContentScale.Crop
+//        )
+//
+//        Column(modifier = Modifier.padding(16.dp)) {
+//            Text(
+//                text = "Happy Meal",
+//                fontSize = 26.sp
+//            )
+//            Spacer(modifier = Modifier.padding(top = 10.dp))
+//            Text(
+//                text = "800 Calories",
+//                fontSize = 17.sp
+//            )
+//            Spacer(modifier = Modifier.padding(top = 10.dp))
+//            Text(
+//                text = "$5.99",
+//                color = Color(0xFF85bb65),
+//                fontSize = 14.sp
+//            )
+//        }
+//    }
+//}
+//
+//@Composable
+//fun BasicRow() {
+//    Column(
+//        modifier = Modifier
+//            .fillMaxSize()
+//            .verticalScroll(state = ScrollState(0))
+//
+//    ) {
+//        Image(
+//            painterResource(R.drawable.happy_meal_small),
+//            contentDescription = "",
+//            modifier = Modifier.height(300.dp).fillMaxWidth(),
+//            contentScale = ContentScale.Crop
+//        )
+//        Column(
+//            modifier = Modifier.padding(16.dp)
+//        ) {
+//
+//            Row(
+//                modifier = Modifier.fillMaxWidth(),
+//                horizontalArrangement = Arrangement.SpaceBetween,
+//            ) {
+//
+//                //https://stackoverflow.com/a/66622843
+//                Text(
+//                    text = "Happy Happy",
+//                    fontSize = 26.sp,
+//                    modifier = Modifier.weight(1f)
+//                )
+//
+//                Text(
+//                    text = "$5.99",
+//                    color = Color(0xFF85bb65),
+//                    fontSize = 14.sp,
+//                    modifier = Modifier.align(Alignment.CenterVertically)
+//                )
+//            }
+//
+//            Spacer(modifier = Modifier.padding(top = 10.dp))
+//            Text(
+//                text = "800 Calories",
+//                fontSize = 17.sp
+//            )
+//
+//            Spacer(modifier = Modifier.padding(top = 10.dp))
+//            Button(
+//                onClick = {},
+//                modifier = Modifier.align(Alignment.CenterHorizontally)
+//            ) {
+//                Text(text = "button")
+//            }
+//        }
+//    }
+//}
+//
+//@Composable
+//fun Greeting(name: String) {
+//    Text("Hello World $name", Modifier.fillMaxWidth())
+//}
+//
+//@Composable
+//fun DefaultPreview() {
+//    ComposeBeginnerTheme {
+//        Greeting("Android")
+//    }
+//}
