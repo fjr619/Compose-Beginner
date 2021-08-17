@@ -9,6 +9,8 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.Button
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Text
@@ -22,6 +24,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.fjr619.composebeginner.R
+import com.fjr619.composebeginner.presentation.ui.components.RecipeCard
 import com.fjr619.composebeginner.presentation.ui.theme.HorizontalDottedProgress
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -31,42 +34,21 @@ class RecipeListFragment: Fragment() {
 
     private val viewModel: RecipeListViewModel by viewModels()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        println("RecipeListFragment: $viewModel")
-        println("RecipeListFragment: repository: ${viewModel.getRepo()}")
-        println("RecipeListFragment: token: ${viewModel.getAuthToken()}")
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_recipe_list, container, false)
-        view.findViewById<ComposeView>(R.id.compose_view).setContent {
-            Column(modifier = Modifier
-                .border(border = BorderStroke(1.dp, Color.Black))
-                .padding(16.dp)
-            ) {
-                Text("THIS IS A COMPOSABLE INSIDE FRAGMENT")
-                Spacer(modifier = Modifier.padding(10.dp))
-                CircularProgressIndicator()
-                Spacer(modifier = Modifier.padding(10.dp))
+        return ComposeView(requireContext()).apply {
+            setContent {
+                val recipes = viewModel.recipes.value
 
-                val customView = HorizontalDottedProgress(LocalContext.current)
-                AndroidView(factory = { customView })
-
-                Spacer(modifier = Modifier.padding(16.dp))
-                Button(
-                    onClick = {
-                        findNavController().navigate(R.id.action_recipeListFragment_to_recipeFragment)
+                LazyColumn {
+                    itemsIndexed(items = recipes) { index, item ->
+                        RecipeCard(recipe = item, onClick = {})
                     }
-                ) {
-                    Text(text = "To recipe fragment")
                 }
             }
         }
-        return view
     }
 }
