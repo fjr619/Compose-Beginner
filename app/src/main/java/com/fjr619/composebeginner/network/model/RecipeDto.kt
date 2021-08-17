@@ -2,7 +2,8 @@ package com.fjr619.composebeginner.network.model
 
 import com.google.gson.annotations.SerializedName
 
-class RecipeNetworkEntity(
+// https://en.wikipedia.org/wiki/Data_transfer_object
+class RecipeDto(
 
     @SerializedName("pk")
     var pk: Int? = null,

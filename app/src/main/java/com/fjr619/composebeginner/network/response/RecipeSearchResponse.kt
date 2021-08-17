@@ -1,6 +1,6 @@
 package com.fjr619.composebeginner.network.response
 
-import com.fjr619.composebeginner.network.model.RecipeNetworkEntity
+import com.fjr619.composebeginner.network.model.RecipeDto
 import com.google.gson.annotations.SerializedName
 
 class RecipeSearchResponse(
@@ -9,5 +9,5 @@ class RecipeSearchResponse(
     var count: Int,
 
     @SerializedName("results")
-    var recipes: List<RecipeNetworkEntity>,
+    var recipes: List<RecipeDto>,
 )
