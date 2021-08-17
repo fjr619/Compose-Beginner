@@ -4,6 +4,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.selection.toggleable
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
@@ -16,18 +17,22 @@ import androidx.compose.ui.unit.dp
 @Composable
 fun FoodCategoryChip(
     category: String,
-    onExecuteSearch: (String) -> Unit,
+    isSelection: Boolean = false,
+    onSelectedCategoryChanged: (String) -> Unit,
+    onExecuteSearch: () -> Unit,
 ){
     Surface(
         modifier = Modifier.padding(end = 8.dp),
         elevation = 8.dp,
         shape = MaterialTheme.shapes.medium,
-        color = MaterialTheme.colors.primary
+        color = if (isSelection) Color.LightGray else MaterialTheme.colors.primary
     ) {
         Row(modifier = Modifier
-            .clickable(
-                onClick = {
-                    onExecuteSearch(category)
+            .toggleable(
+                value = isSelection,
+                onValueChange = {
+                    onSelectedCategoryChanged(category)
+                    onExecuteSearch()
                 }
             )
         ) {

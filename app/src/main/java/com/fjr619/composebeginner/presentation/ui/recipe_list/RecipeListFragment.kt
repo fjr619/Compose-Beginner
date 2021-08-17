@@ -52,6 +52,7 @@ class RecipeListFragment : Fragment() {
             setContent {
                 val recipes = viewModel.recipes.value
                 val query = viewModel.query.value
+                val selectedCategory = viewModel.selectedCategory.value
                 Column(modifier = Modifier.background(color = Color.White)) {
                     Surface(
                         modifier = Modifier.fillMaxWidth(),
@@ -86,7 +87,7 @@ class RecipeListFragment : Fragment() {
                                         Icon(Icons.Filled.Search, "Search")
                                     },
                                     keyboardActions = KeyboardActions {
-                                        viewModel.newSearch(query)
+                                        viewModel.newSearch()
                                         keyboardController?.hide()
                                         localFocusManager.clearFocus()
                                     },
@@ -96,12 +97,18 @@ class RecipeListFragment : Fragment() {
                             }
 
                             //cara 1
-                            LazyRow(content = {
+                            LazyRow(
+                                modifier = Modifier.padding(top = 8.dp, bottom = 8.dp),
+                                content = {
                                 items(getAllFoodCategories()) { category ->
-                                    FoodCategoryChip(category = category.value, onExecuteSearch ={
-                                        viewModel.onQueryChanged(it)
-                                        viewModel.newSearch(it)
-                                    } )
+                                    FoodCategoryChip(
+                                        category = category.value,
+                                        isSelection = selectedCategory == category,
+                                        onSelectedCategoryChanged = {
+                                            viewModel.onSelectedCategoryChanged(it)
+                                        },
+                                        onExecuteSearch = viewModel::newSearch,
+                                    )
                                 }
                             })
 
