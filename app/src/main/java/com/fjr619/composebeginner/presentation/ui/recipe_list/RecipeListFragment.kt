@@ -1,6 +1,7 @@
 package com.fjr619.composebeginner.presentation.ui.recipe_list
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,12 +9,14 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.Button
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Text
+import androidx.compose.material.TextField
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.ComposeView
@@ -38,14 +41,29 @@ class RecipeListFragment: Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         return ComposeView(requireContext()).apply {
             setContent {
                 val recipes = viewModel.recipes.value
+                val query = viewModel.query.value
+                Column {
+                    TextField(
+                        modifier = Modifier.fillMaxWidth(),
+                        value = query,
+                        onValueChange = {
+                            viewModel.onQueryChanged(it)
+                        },
+                        label = {
+                            Text(text = "Search")
+                        }
+                    )
 
-                LazyColumn {
-                    itemsIndexed(items = recipes) { index, item ->
-                        RecipeCard(recipe = item, onClick = {})
+                    LazyColumn {
+                        itemsIndexed(items = recipes) { index, item ->
+                            RecipeCard(recipe = item, onClick = {
+                                Log.e("TAG", "$index ${item.id} ${item.title}")
+                            })
+                        }
                     }
                 }
             }
