@@ -11,6 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.imageResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.fjr619.composebeginner.R
 import com.fjr619.composebeginner.domain.model.Recipe
@@ -34,7 +35,8 @@ fun RecipeCard(
                 GlideImage(
                     imageModel = url,
                     placeHolder = ImageBitmap.imageResource(R.drawable.empty_plate),
-                    modifier = Modifier.fillMaxWidth()
+                    modifier = Modifier
+                        .fillMaxWidth()
                         .height(225.dp),
                     contentScale = ContentScale.Crop
                 )
