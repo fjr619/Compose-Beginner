@@ -10,10 +10,7 @@ import androidx.compose.foundation.gestures.Orientation
 import androidx.compose.foundation.gestures.scrollBy
 import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.horizontalScroll
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardActions
@@ -34,6 +31,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import com.fjr619.composebeginner.presentation.ui.components.CircularIndeterminateProgressBar
 import com.fjr619.composebeginner.presentation.ui.components.FoodCategoryChip
 import com.fjr619.composebeginner.presentation.ui.components.RecipeCard
 import com.fjr619.composebeginner.presentation.ui.components.SearchAppbar
@@ -56,6 +54,7 @@ class RecipeListFragment : Fragment() {
                 val recipes = viewModel.recipes.value
                 val query = viewModel.query.value
                 val selectedCategory = viewModel.selectedCategory.value
+                val loading = viewModel.loading.value
                 Column(modifier = Modifier.background(color = Color.White)) {
                     SearchAppbar(
                         query = query,
@@ -74,12 +73,20 @@ class RecipeListFragment : Fragment() {
                             viewModel.onChangeCategoryScrollPosition(it)
                         }
                     )
-                    LazyColumn {
-                        itemsIndexed(items = recipes) { index, item ->
-                            RecipeCard(recipe = item, onClick = {
-                                Log.e("TAG", "$index ${item.id} ${item.title}")
-                            })
+
+                    //seperti framelayout, view tindih2an
+                    Box(
+                        modifier = Modifier.fillMaxSize()
+                    ) {
+                        LazyColumn {
+                            itemsIndexed(items = recipes) { index, item ->
+                                RecipeCard(recipe = item, onClick = {
+                                    Log.e("TAG", "$index ${item.id} ${item.title}")
+                                })
+                            }
                         }
+
+                        CircularIndeterminateProgressBar(isDisplayed = loading)
                     }
                 }
             }
